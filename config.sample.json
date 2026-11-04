@@ -1,0 +1,91 @@
+{
+  "_comment": [
+    "ZoneTitan zone definitions for Taj's desk. Device paths captured 2026-08-01 from the",
+    "M1 enumeration spike and verified against live hardware.",
+    "",
+    "Not yet consumed by anything - the engine (M2) does not exist. This file exists so the",
+    "engine is built against real identities rather than placeholders. Copy to",
+    "%APPDATA%\\ZoneTitan\\config.json once M2 lands.",
+    "",
+    "Primary is not a flag in the CCD API: the primary display is definitionally the source",
+    "positioned at (0,0). The 'primary' field below tells the engine which monitor to",
+    "normalise the layout around (spec section 4, step 4)."
+  ],
+
+  "monitors": {
+    "\\\\?\\DISPLAY#DELA24A#5&63e90f1&0&UID4352#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}": {
+      "alias": "OLED",
+      "friendly": "AW3225QF",
+      "_note": "Alienware 4K QD-OLED, connected via HDMI. Currently detached."
+    },
+    "\\\\?\\DISPLAY#GSM5BE3#5&63e90f1&0&UID4353#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}": {
+      "alias": "Left",
+      "friendly": "LG FHD",
+      "_note": "1920x1080 @ 74.97 Hz. Sits at x=-1920, hence 'Left'."
+    },
+    "\\\\?\\DISPLAY#GSM5BD3#5&63e90f1&0&UID4355#{e6f07b5f-ee97-4a90-b076-33f57bf4eaa7}": {
+      "alias": "Right",
+      "friendly": "LG ULTRAGEAR",
+      "_note": "2560x1440 @ 164.96 Hz, HDR capable. Sits at x=0."
+    }
+  },
+
+  "zones": [
+    {
+      "name": "game",
+      "hotkey": "Ctrl+Alt+G",
+      "monitors": ["OLED"],
+      "primary": "OLED",
+      "accent": "#FF2E97",
+      "hdr": { "OLED": true },
+      "_note": "Solo, so the OLED is primary by necessity. No mode pinned yet - capture a verified snapshot once the OLED is attached and confirmed at 4K 240 Hz."
+    },
+    {
+      "name": "studio",
+      "hotkey": "Ctrl+Alt+S",
+      "monitors": ["Left", "Right"],
+      "primary": "Right",
+      "accent": "#38D4FF",
+      "_note": "Primary is the LG ULTRAGEAR. Matches the current live layout, so no rearrangement is needed."
+    },
+    {
+      "name": "all",
+      "hotkey": "Ctrl+Alt+A",
+      "monitors": ["OLED", "Left", "Right"],
+      "primary": "OLED",
+      "accent": "#DCE6FF"
+    }
+  ],
+
+  "inputRouting": {
+    "enabled": true,
+    "routingWindowSeconds": 10,
+    "_comment": "Wake routing. Device instance paths still need confirming - see docs/addendum-input-device-routing.md section 1.",
+    "rules": [
+      {
+        "device": "HID\\VID_04D9&PID_FC38&MI_00",
+        "match": "vidPid",
+        "zone": "game",
+        "_note": "Wired Redragon mouse. UNCONFIRMED - inferred from Holtek vendor id."
+      },
+      {
+        "device": "HID\\VID_25A7&PID_FA61&MI_01&COL01",
+        "match": "vidPid",
+        "zone": "studio",
+        "_note": "Wireless dongle mouse. UNCONFIRMED - one of two Areson receivers."
+      },
+      {
+        "device": "HID\\VID_25A7&PID_FA70&MI_01&COL01",
+        "match": "vidPid",
+        "zone": "studio",
+        "_note": "The other Areson receiver. Both mapped to studio so routing works either way."
+      }
+    ]
+  },
+
+  "options": {
+    "startWithWindows": true,
+    "osdToast": true,
+    "failsafeHotkey": "Ctrl+Alt+F12"
+  }
+}

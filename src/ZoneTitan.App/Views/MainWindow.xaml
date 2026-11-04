@@ -1,0 +1,117 @@
+<Window x:Class="ZoneTitan.App.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ZoneTitan"
+        Width="1080" Height="780"
+        MinWidth="900" MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        Style="{StaticResource ZoneWindow}">
+
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- The signature gradient. Used here and on the wordmark underline only. -->
+        <Rectangle Grid.Row="0" Fill="{StaticResource SignatureGradient}" />
+
+        <!-- ==================== Header ==================== -->
+        <Grid Grid.Row="1" Margin="24,20,24,12">
+            <StackPanel>
+                <TextBlock Text="ZoneTitan" Style="{StaticResource TitleText}" />
+                <Rectangle Height="2" Width="76" HorizontalAlignment="Left" Margin="0,3,0,0"
+                           Fill="{StaticResource SignatureGradient}" />
+                <TextBlock x:Name="SubtitleText" Style="{StaticResource DimText}"
+                           Margin="0,8,0,0" Text="No zone active" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <Button x:Name="ZonesTabButton" Content="Zones" Style="{StaticResource QuietButton}"
+                        Margin="0,0,8,0" Click="OnShowZonesTab" />
+                <Button x:Name="RoutingTabButton" Content="Wake routing" Style="{StaticResource QuietButton}"
+                        Margin="0,0,8,0" Click="OnShowRoutingTab" />
+                <Button Content="Identify" Style="{StaticResource QuietButton}"
+                        Margin="0,0,8,0" Click="OnIdentify" />
+                <Button Content="All monitors" Style="{StaticResource QuietButton}" Click="OnFailsafe" />
+            </StackPanel>
+        </Grid>
+
+        <!-- ==================== Monitor map ==================== -->
+        <Border Grid.Row="2" Style="{StaticResource Card}" Margin="24,0,24,14">
+            <StackPanel>
+                <TextBlock Text="MONITORS   ·   drag a highlighted monitor to rearrange this zone"
+                           Style="{StaticResource SectionLabel}" />
+                <Canvas x:Name="MonitorMap" Height="190" ClipToBounds="True" />
+            </StackPanel>
+        </Border>
+
+        <!-- ==================== Zones tab ==================== -->
+        <Grid x:Name="ZonesPanel" Grid.Row="3" Margin="24,0,24,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0" Margin="0,0,14,0">
+                <TextBlock DockPanel.Dock="Top" Text="ZONES" Style="{StaticResource SectionLabel}" />
+
+                <Button DockPanel.Dock="Bottom" Content="+  New zone" Style="{StaticResource QuietButton}"
+                        Margin="0,10,0,0" Click="OnAddZone" />
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="ZoneRail" />
+                </ScrollViewer>
+            </DockPanel>
+
+            <Border Grid.Column="1" Style="{StaticResource Card}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="EditorPanel" />
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- ==================== Wake routing tab ==================== -->
+        <Border x:Name="RoutingPanel" Grid.Row="3" Style="{StaticResource Card}"
+                Margin="24,0,24,0" Visibility="Collapsed">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="RoutingContent" />
+            </ScrollViewer>
+        </Border>
+
+        <!-- ==================== Footer ==================== -->
+        <Border Grid.Row="4" Background="{StaticResource SurfaceBrush}"
+                BorderBrush="{StaticResource StrokeBrush}" BorderThickness="0,1,0,0"
+                Padding="24,12" Margin="0,14,0,0">
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="StartWithWindowsCheck" Style="{StaticResource ZoneCheckBox}"
+                              Content="Start with Windows" Margin="0,0,20,0"
+                              Click="OnToggleStartWithWindows" />
+
+                    <CheckBox x:Name="TaskbarGuardCheck" Style="{StaticResource ZoneCheckBox}"
+                              Content="Keep taskbar hidden" Margin="0,0,20,0"
+                              Click="OnToggleTaskbarGuard" />
+
+                    <TextBlock x:Name="FailsafeText" Style="{StaticResource MonoText}"
+                               VerticalAlignment="Center" />
+
+                    <TextBlock x:Name="SavedIndicator" Style="{StaticResource DimText}"
+                               VerticalAlignment="Center" Margin="16,0,0,0"
+                               Foreground="{StaticResource OkBrush}"
+                               Text="saved" Opacity="0" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Open log folder" Style="{StaticResource QuietButton}"
+                            Margin="0,0,8,0" Click="OnOpenLogs" />
+                    <Button Content="Open config" Style="{StaticResource QuietButton}"
+                            Click="OnOpenConfig" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

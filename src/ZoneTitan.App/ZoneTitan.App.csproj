@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <UseWPF>true</UseWPF>
+
+    <!-- WinForms is here purely for NotifyIcon. Spec §3 allows either that or
+         H.NotifyIcon.Wpf, whichever is less friction; hosting the built-in tray icon
+         keeps ZoneTitan dependency-free, which matters for single-file publish. -->
+    <UseWindowsForms>true</UseWindowsForms>
+
+    <AssemblyName>ZoneTitan</AssemblyName>
+    <RootNamespace>ZoneTitan.App</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+
+    <!-- The monitor map and identify overlays must land correctly across displays with
+         different scaling. Set here rather than in the manifest — WinForms requires it. -->
+    <ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZoneTitan.Core\ZoneTitan.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- WinForms and WPF both define Application, Color, Button and KeyEventArgs. Dropping
+         the WinForms global usings makes WPF the unambiguous default across the app; the two
+         files that genuinely need WinForms (the tray icon and the device lister) import it
+         explicitly. -->
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+  </ItemGroup>
+
+</Project>

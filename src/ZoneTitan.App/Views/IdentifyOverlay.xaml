@@ -1,0 +1,32 @@
+<Window x:Class="ZoneTitan.App.Views.IdentifyOverlay"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ShowInTaskbar="False"
+        Topmost="True"
+        ResizeMode="NoResize"
+        Focusable="False"
+        ShowActivated="False">
+
+    <Border Background="#D90A0C12"
+            BorderBrush="{DynamicResource AccentBrush}"
+            BorderThickness="3">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock x:Name="AliasText"
+                       Text="OLED"
+                       FontFamily="{StaticResource UiFont}"
+                       FontSize="120"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Foreground="{DynamicResource AccentBrush}" />
+
+            <TextBlock x:Name="DetailText"
+                       Style="{StaticResource MonoText}"
+                       FontSize="18"
+                       HorizontalAlignment="Center"
+                       Margin="0,12,0,0" />
+        </StackPanel>
+    </Border>
+</Window>

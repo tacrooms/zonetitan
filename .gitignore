@@ -1,0 +1,25 @@
+# ZoneTitan
+
+# Reference clones — read-only study material, never distributed (spec §0 rule 1)
+reference/
+
+# Build output
+bin/
+obj/
+publish/
+artifacts/
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local runtime data
+*.log
+
+# Claude Code local settings
+.claude/

@@ -1,0 +1,88 @@
+<!--
+    ZoneTitan design tokens — spec §9, "future professional".
+
+    Principle: not too much, just enough. Neon reads professional when it is *state*,
+    not decoration. The base is near-black and disciplined; pink and blue appear only
+    where something is active, focused, or announcing itself.
+
+    AccentBrush is deliberately a mutable resource: the active zone's accent is swapped
+    into it on every zone change, and the whole app takes the cue like a lighting scene.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- ==================== Palette ==================== -->
+
+    <Color x:Key="BgColor">#0A0C12</Color>
+    <Color x:Key="SurfaceColor">#12151F</Color>
+    <Color x:Key="Surface2Color">#1A1E2C</Color>
+    <Color x:Key="StrokeColor">#262B3D</Color>
+    <Color x:Key="TextColor">#E8ECF4</Color>
+    <Color x:Key="TextDimColor">#8A93A8</Color>
+
+    <Color x:Key="PinkColor">#FF2E97</Color>
+    <Color x:Key="BlueColor">#38D4FF</Color>
+    <Color x:Key="NeutralColor">#DCE6FF</Color>
+
+    <Color x:Key="OkColor">#3DDC97</Color>
+    <Color x:Key="WarnColor">#FFB454</Color>
+    <Color x:Key="DangerColor">#FF5470</Color>
+
+    <SolidColorBrush x:Key="BgBrush" Color="{StaticResource BgColor}" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}" />
+    <SolidColorBrush x:Key="Surface2Brush" Color="{StaticResource Surface2Color}" />
+    <SolidColorBrush x:Key="StrokeBrush" Color="{StaticResource StrokeColor}" />
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}" />
+    <SolidColorBrush x:Key="TextDimBrush" Color="{StaticResource TextDimColor}" />
+
+    <SolidColorBrush x:Key="PinkBrush" Color="{StaticResource PinkColor}" />
+    <SolidColorBrush x:Key="BlueBrush" Color="{StaticResource BlueColor}" />
+    <SolidColorBrush x:Key="NeutralBrush" Color="{StaticResource NeutralColor}" />
+    <SolidColorBrush x:Key="OkBrush" Color="{StaticResource OkColor}" />
+    <SolidColorBrush x:Key="WarnBrush" Color="{StaticResource WarnColor}" />
+    <SolidColorBrush x:Key="DangerBrush" Color="{StaticResource DangerColor}" />
+
+    <!-- Swapped at runtime on zone change. Neutral until a zone is active. -->
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource NeutralColor}" />
+    <Color x:Key="AccentColor">#DCE6FF</Color>
+
+    <!-- The one signature gradient. Reserved for the wordmark underline and the
+         active window's top accent line. Nowhere else (spec §9). -->
+    <LinearGradientBrush x:Key="SignatureGradient" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="{StaticResource PinkColor}" Offset="0" />
+        <GradientStop Color="{StaticResource BlueColor}" Offset="1" />
+    </LinearGradientBrush>
+
+    <!-- ==================== Typography ==================== -->
+
+    <FontFamily x:Key="UiFont">Segoe UI Variable Text, Segoe UI, Inter, sans-serif</FontFamily>
+
+    <!-- The hardware speaks monospace: device paths, resolutions, refresh rates, hotkeys.
+         JetBrains Mono if installed, else Cascadia/Consolas. -->
+    <FontFamily x:Key="MonoFont">JetBrains Mono, Cascadia Mono, Consolas, monospace</FontFamily>
+
+    <sys:Double x:Key="FontSizeSmall">11</sys:Double>
+    <sys:Double x:Key="FontSizeBody">13</sys:Double>
+    <sys:Double x:Key="FontSizeTitle">18</sys:Double>
+
+    <!-- ==================== Shape and motion ==================== -->
+
+    <CornerRadius x:Key="RadiusCard">12</CornerRadius>
+    <CornerRadius x:Key="RadiusControl">10</CornerRadius>
+    <CornerRadius x:Key="RadiusChip">6</CornerRadius>
+
+    <Thickness x:Key="CardPadding">16</Thickness>
+    <Thickness x:Key="CardMargin">0,0,0,10</Thickness>
+
+    <Duration x:Key="TransitionDuration">0:0:0.15</Duration>
+
+    <!-- Glow budget (spec §9): DropShadowEffect is software-rendered in WPF, so this is
+         applied to the active zone card and hovered interactive elements only — never lists. -->
+    <DropShadowEffect x:Key="AccentGlow"
+                      Color="{StaticResource AccentColor}"
+                      BlurRadius="14"
+                      ShadowDepth="0"
+                      Opacity="0.35" />
+
+</ResourceDictionary>
